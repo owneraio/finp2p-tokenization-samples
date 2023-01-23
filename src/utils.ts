@@ -25,6 +25,7 @@ export const getSdk = () => {
     });
     return sdk;
   } catch (e) {
+    console.error(e)
     console.error(chalk.redBright(`
 Error while instantiating the FinP2P sdk js. Please check the configuration you provided.
     `));
