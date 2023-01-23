@@ -23,7 +23,10 @@ Selecting this option will use the provided data from `config` in order to creat
 The config allows you to set the data about the asset itself (`assetTicker`, `assetName`, ...) and 
 the primary sale (`primarySaleQuantity`, `primarySaleUnitValue`).  
 Some data about the asset are optional and won't block the asset creation if no value is provided
-(`assetOptionalData`, `shareWith`) 
+(`assetOptionalData`, `shareWith`).  
+You also have the option to put some files (images, pdf) into a folder `kyaDocs` in `/src`. The script will take the files 
+and attach them to the KYA. If you want specifically to have icon and logo for the asset, you should name
+the file `icon.(jpg|png|webp)` and `logo.(jpg|png|webp)` 
 
 #### Get cap table
 Selecting this option will let you select an existing asset and will provide its capitalization table data. 

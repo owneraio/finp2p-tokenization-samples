@@ -53,6 +53,7 @@ const createAsset = async () => {
         signingMethod: signingMethod({custody: sdk.owneraAPI.custodyAdapter!, accountId: issuerAccount.id}),
       },
     });
+    await issuer.share([config.escrow.orgId]);
     issuerId = issuer.id;
     issuerPk = issuerAccount.publicKey;
     console.info(chalk.blueBright(`Issuer created with id ${issuer.id}`));
@@ -97,7 +98,7 @@ const createAsset = async () => {
   // TODO add files stored in /kyaDocs
 
   const pathToDocs = path.resolve(path.join(__dirname, 'kyaDocs'));
-  const files = await promisify(fs.readdir)(pathToDocs);
+  const files = (await promisify(fs.readdir)(pathToDocs)).filter(f => f !== '.gitkeep');
   if (files.length > 0) {
     const stream = await Promise.all(files.map(f => fs.createReadStream(path.resolve(pathToDocs, f))));
     const docResponse = await kya.addDocuments(stream);
