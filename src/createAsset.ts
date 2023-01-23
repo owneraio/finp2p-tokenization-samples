@@ -95,7 +95,6 @@ const createAsset = async () => {
   });
   const kya = await asset.createCertificate(kyaRequest);
   console.info(chalk.blueBright(`KYA created with id ${kya.id}`));
-  // TODO add files stored in /kyaDocs
 
   const pathToDocs = path.resolve(path.join(__dirname, 'kyaDocs'));
   const files = (await promisify(fs.readdir)(pathToDocs)).filter(f => f !== '.gitkeep');
@@ -104,8 +103,13 @@ const createAsset = async () => {
     const docResponse = await kya.addDocuments(stream);
     console.info(chalk.blueBright(`Added ${files.length} document${files.length > 1 && 's'} to KYA:
 ${chalk.italic.whiteBright(JSON.stringify(docResponse.refs, null, 2))} 
- `));
+    `));
   }
+
+  // share asset
+  console.info(chalk.blueBright(`Sharing asset ${config.asset.assetName} with orgs: ${JSON.stringify(config.asset.shareWith)}`));
+  await asset.share(config.asset.shareWith);
+  console.info(chalk.blueBright(`Shared asset`));
 
   // create primary sale
   console.info(chalk.blueBright(`Creating primary sale for asset: ${config.asset.assetName}`));
@@ -131,11 +135,6 @@ ${chalk.italic.whiteBright(JSON.stringify(docResponse.refs, null, 2))}
     }],
   });
   console.info(chalk.blueBright(`Created primary sale with id: ${primarySale.id}`));
-
-  // share asset
-  console.info(chalk.blueBright(`Sharing asset ${config.asset.assetName} with orgs: ${JSON.stringify(config.asset.shareWith)}`));
-  await asset.share(config.asset.shareWith);
-  console.info(chalk.blueBright(`Shared asset`));
 };
 
 export default createAsset;

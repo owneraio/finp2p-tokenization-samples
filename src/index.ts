@@ -5,7 +5,7 @@ import getAssets from './getAssets';
 import getCapTable from './getCapTable';
 
 const choices = [
-  'Create new issuer and shared asset with primary sale',
+  'Create new issuer and asset with primary sale',
   'Get cap table for an asset',
 ];
 
@@ -20,11 +20,11 @@ const choices = [
       default: 0,
     }]);
 
-    if (mainAction.action === choices[ 0 ]) {
+    if (mainAction.action === choices[0]) {
       await createAsset();
     }
 
-    if (mainAction.action === choices[ 1 ]) {
+    if (mainAction.action === choices[1]) {
       const assets = await getAssets();
       if (assets.length > 0) {
         const assetSelection = await inquirer.prompt<{selection: string}>([{
